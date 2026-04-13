@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public TextMeshProUGUI marcadorTexto;
+    [HideInInspector] public TextMeshProUGUI marcadorTexto; // Ya no hace falta arrastrarlo en el inspector
 
     // Variables configurables desde el Menú
     [HideInInspector] public int puntosObjetivo = 20;
@@ -27,15 +27,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // --- ESTO ES LO NUEVO: Reconectar el texto al cambiar de escena ---
+    void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
+    void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameObject objScore = GameObject.Find("Score"); // Busca el objeto llamado "Score" en la jerarquía
+        if (objScore != null)
+        {
+            marcadorTexto = objScore.GetComponent<TextMeshProUGUI>();
+            ActualizarTexto();
+        }
+    }
+    // ------------------------------------------------------------------
+
     public void SumarPunto(int valor)
     {
         if (juegoTerminado) return;
 
         puntos += valor;
-        // Evitamos puntos negativos
-        if (puntos < 0) puntos = 0;
+        if (puntos < 0) puntos = 0; // Evitamos puntos negativos
 
-        marcadorTexto.text = "Puntos: " + puntos + " / " + puntosObjetivo;
+        ActualizarTexto();
 
         if (puntos >= puntosObjetivo)
         {
@@ -43,16 +57,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void ActualizarTexto()
+    {
+        if (marcadorTexto != null)
+        {
+            marcadorTexto.text = "Puntos: " + puntos + " / " + puntosObjetivo;
+        }
+    }
+
     void TerminarJuego()
     {
         juegoTerminado = true;
-        marcadorTexto.text = "¡FIN DEL JUEGO!";
-        // Opcional: Invoke para volver al menú en 3 segundos
+        if (marcadorTexto != null) marcadorTexto.text = "¡FIN DEL JUEGO!";
         Invoke("IrAlMenu", 3f);
     }
 
     void IrAlMenu()
     {
+        // Reiniciamos los valores antes de volver al menú
+        juegoTerminado = false;
+        puntos = 0;
         SceneManager.LoadScene("MenuVR");
     }
 }
