@@ -5,7 +5,6 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class AutoAgarrar : MonoBehaviour
 {
-    // Ahora usamos GameObject para que te deje arrastrar CUALQUIER COSA de la jerarquía
     public GameObject mando;
     public GameObject espada;
 

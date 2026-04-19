@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [HideInInspector] public TextMeshProUGUI marcadorTexto; // Ya no hace falta arrastrarlo en el inspector
+    [HideInInspector] public TextMeshProUGUI marcadorTexto;
 
     // Variables configurables desde el Menú
     [HideInInspector] public int puntosObjetivo = 20;
@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // --- ESTO ES LO NUEVO: Reconectar el texto al cambiar de escena ---
     void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
     void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
 
@@ -40,14 +39,13 @@ public class GameManager : MonoBehaviour
             ActualizarTexto();
         }
     }
-    // ------------------------------------------------------------------
 
     public void SumarPunto(int valor)
     {
         if (juegoTerminado) return;
 
         puntos += valor;
-        if (puntos < 0) puntos = 0; // Evitamos puntos negativos
+        if (puntos < 0) puntos = 0; // Evitar puntos negativos
 
         ActualizarTexto();
 

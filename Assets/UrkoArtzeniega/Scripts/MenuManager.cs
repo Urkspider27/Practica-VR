@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
     public void EmpezarNivelComplicado()
     {
         GuardarConfiguracion();
-        SceneManager.LoadScene("NivelComplicado");
+        SceneManager.LoadScene("NivelDificil");
     }
 
     private void GuardarConfiguracion()

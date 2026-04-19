@@ -3,8 +3,8 @@ using UnityEngine;
 public class GeneradorCubos : MonoBehaviour
 {
     public GameObject cuboPrefab;
-    public GameObject bombaPrefab; // Arrastra un cubo rojo aquí
-    [Range(0, 1)] public float probabilidadBomba = 0.2f; // 20% bombas
+    public GameObject bombaPrefab;
+    [Range(0, 1)] public float probabilidadBomba = 0.5f; // 60% bombas
 
     public float tiempoEntreCubos = 2.5f;
     private float tiempoTemporizador;
@@ -29,7 +29,7 @@ public class GeneradorCubos : MonoBehaviour
         float yAleatorio = Random.Range(-rangoVertical, rangoVertical);
         Vector3 posicionAleatoria = transform.position + new Vector3(xAleatorio, yAleatorio, 0);
 
-        // Lógica de la Fase 2: ¿Cubo o Bomba?
+        // Cubo o Bomba?
         GameObject objetoAInstanciar = cuboPrefab;
         if (Random.value < probabilidadBomba)
         {

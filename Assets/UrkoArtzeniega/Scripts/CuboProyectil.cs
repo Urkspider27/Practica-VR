@@ -3,7 +3,7 @@ using UnityEngine;
 public class CuboProyectil : MonoBehaviour
 {
     public float velocidad = 5f;
-    public bool esBomba = false; // Marcar esta casilla solo en el Prefab de la bomba
+    public bool esBomba = false;
     private Vector3 direccion;
 
     void Start()
