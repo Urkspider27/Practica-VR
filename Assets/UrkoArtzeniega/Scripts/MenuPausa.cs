@@ -5,15 +5,28 @@ using UnityEngine.SceneManagement;
 public class MenuPausa : MonoBehaviour
 {
     public GameObject panelPausa;
-    public InputActionReference botonMenu; // asignas el botón Menu del mando izquierdo
+
+    // Usamos la estructura del profe: privado pero visible en el Inspector
+    [SerializeField] private InputActionReference botonMenu;
 
     private bool pausado = false;
 
-    void OnEnable() => botonMenu.action.performed += TogglePausa;
-    void OnDisable() => botonMenu.action.performed -= TogglePausa;
-
-    void TogglePausa(InputAction.CallbackContext ctx)
+    private void OnEnable()
     {
+        // Suscribirse al evento 'performed' (cuando se pulsa el botón)
+        botonMenu.action.performed += TogglePausa;
+    }
+
+    private void OnDisable()
+    {
+        // Desuscribirse para evitar errores de memoria
+        botonMenu.action.performed -= TogglePausa;
+    }
+
+    private void TogglePausa(InputAction.CallbackContext context)
+    {
+        Debug.Log("¡Botón Menú pulsado!"); // Añadimos el aviso en consola del profe
+
         pausado = !pausado;
         panelPausa.SetActive(pausado);
 
@@ -40,6 +53,6 @@ public class MenuPausa : MonoBehaviour
     public void IrAlMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MenuVR"); // el nombre de tu escena de menú
+        SceneManager.LoadScene("MenuVR"); // Asegúrate de que tu escena de inicio se llama exactamente "MenuVR"
     }
 }
