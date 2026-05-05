@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameObject objScore = GameObject.Find("Score"); // Busca el objeto llamado "Score" en la jerarquía
+        GameObject objScore = GameObject.Find("Score");
         if (objScore != null)
         {
             marcadorTexto = objScore.GetComponent<TextMeshProUGUI>();
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         if (marcadorTexto != null)
         {
-            marcadorTexto.text = "Puntos: " + puntos + " / " + puntosObjetivo;
+            marcadorTexto.text = puntos + " / " + puntosObjetivo;
         }
     }
 

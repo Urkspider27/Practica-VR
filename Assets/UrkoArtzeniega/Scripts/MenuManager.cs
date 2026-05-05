@@ -20,6 +20,12 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("NivelDificil");
     }
 
+    public void EmpezarNivelFlechitas()
+    {
+        GuardarConfiguracion();
+        SceneManager.LoadScene("NivelFlechitas");
+    }
+
     private void GuardarConfiguracion()
     {
         if (GameManager.instance != null)
